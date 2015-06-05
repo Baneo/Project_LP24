@@ -9,23 +9,24 @@ public class Model {
 
 	
 	private static final int FRAME_THICKNESS = 16;
-	private int highScore;
-	private int higherTile;
-	private int currentHighScore;
-	private int currentHigherCell;
+
+	private int globalHighestScore;
+	private int globalHighestTile;
+	private int LocalHighestScore;
+	private int LocalHighestTile;
+	
 	private Tile[][] grid;
+	
 	private Random random;
+	
 	private boolean arrow;
 	
 	public Model()
 	{
 		this.grid = new Tile[8][8];
 		this.random = new Random();
-		this.highScore = 0;
-		this.higherTile = 0;
-		this.currentHigherCell = 0;
-		this.currentHighScore = 0;
 		this.arrow = false;
+		initialization();
 	}
 	
 	public void initialization()
@@ -47,40 +48,56 @@ public class Model {
 	
 	public void setHighScores()
 	{
-		if(currentHighScore > highScore)
+		if(LocalHighestScore > globalHighestScore)
 		{
-			highScore = currentHighScore;
+			globalHighestScore = LocalHighestScore;
 		}
 		
-		if(currentHigherCell > higherTile)
+		if(LocalHighestTile > globalHighestTile)
 		{
-			higherTile = currentHigherCell;
+			globalHighestTile = LocalHighestTile;
 		}
 		
-		currentHighScore = 0;
-		currentHigherCell = 0;
+		LocalHighestScore = 0;
+		LocalHighestTile = 0;
 	}
 	
-	public void setHigherScore(int highScore) 
+	public void setGlobalHighestScore(int highScore) 
 	{
-        this.highScore = highScore;
+        this.globalHighestScore = highScore;
     }
 	
-	public int getHigherScore()
+	public int getGlobalHighestScore()
 	{
-		return highScore;
+		return globalHighestScore;
 	}
 	
-	public void setHigherTile(int higherTile) 
+	public void setGlobalHighestTile(int higherTile) 
 	{
-        this.higherTile = higherTile;
+        this.globalHighestTile = higherTile;
     }
 	
-	public int getHigherTile()
+	public int getGlobalHighestTile()
 	{
-		return higherTile;
+		return globalHighestTile;
 	}
 	
+	public int getLocalHighestScore() {
+		return LocalHighestScore;
+	}
+
+	public void setLocalHighestScore(int localHighestScore) {
+		LocalHighestScore = localHighestScore;
+	}
+
+	public int getLocalHighestTile() {
+		return LocalHighestTile;
+	}
+
+	public void setLocalHighestTile(int localHighestTile) {
+		LocalHighestTile = localHighestTile;
+	}
+
 	public boolean isGameOver()
 	{
 		if(isGridFull() && isMoveImpossible())
@@ -134,13 +151,15 @@ public class Model {
 	
 	public void addTile()
 	{
+		int value;
+		
 		if(random.nextInt(10) < 8)
 		{
-			int value = 2;
+			value = 2;
 		}
 		else
 		{
-			int value = 4;
+			value = 4;
 		}
 		
 		boolean rightLocation = false;
@@ -154,7 +173,7 @@ public class Model {
 			{
 				rightLocation = true;
 				StringBuilder stringBuilder = new StringBuilder();
-				stringBuilder.append("Cell added at[" + x + "][" + y + "]");
+				stringBuilder.append("Tile added at[" + x + "][" + y + "]");
 				System.out.println(stringBuilder.toString());
 			}
 			
@@ -164,7 +183,7 @@ public class Model {
 	
 	public Dimension getSize()
 	{
-		int dimension = 8 * Tile.getTileWidth() + FRAME_THICKNESS *5;
+		int dimension = 8 * Tile.getTileWidth() + FRAME_THICKNESS * 9;
 		return new Dimension(dimension, dimension);
 	}
 	
