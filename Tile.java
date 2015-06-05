@@ -8,7 +8,6 @@ import java.awt.font.FontRenderContext;
 import java.awt.geom.Rectangle2D;
 import java.awt.image.BufferedImage;
 
-import project2048.TileColor;
 
 public class Tile {
 	
@@ -40,7 +39,15 @@ public class Tile {
 		this.color = color;
 	}
 	
-	public boolean isZeroValue()
+	public TileColor getTileColor(){
+		return this.color;
+	}
+	
+	public boolean isBlackTile(){
+		return (this.color==TileColor.black);
+	}
+	
+	public boolean isEmpty()
 	{
 		if(value == 0)
 		{

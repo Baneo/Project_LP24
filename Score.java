@@ -5,6 +5,7 @@ import java.awt.Container;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
 import java.awt.Insets;
+import java.text.NumberFormat;
 
 import javax.swing.JLabel;
 import javax.swing.JPanel;
@@ -14,10 +15,11 @@ public class Score {
 
 	private Model model;
 	private JPanel panel;
-	private JTextField globalHighScoreField;
-	private JTextField globalHigherTileField;
-	private JTextField localHighScoreField;
-	private JTextField localHigherTileField;
+	private JTextField globalHighestScoreField;
+	private JTextField globalHighestTileField;
+	private JTextField localHighestScoreField;
+	private JTextField localHighestTileField;
+	private static final NumberFormat numformat = NumberFormat.getInstance();
 	
 
 
@@ -31,34 +33,34 @@ public class Score {
 		JLabel globalHighScoreLabel = new JLabel("Global High Score");
 		addComponent(panel, globalHighScoreLabel, 0, 0, 1, 1, new Insets(10,10,0,10),GridBagConstraints.LINE_START, GridBagConstraints.HORIZONTAL);
 		
-		globalHighScoreField = new JTextField(6);
-		globalHighScoreField.setEditable(false);
-		globalHighScoreField.setHorizontalAlignment(JTextField.RIGHT);
-		addComponent(panel, globalHighScoreField, 1,1,1,1,new Insets(10,10,0,10),GridBagConstraints.LINE_START, GridBagConstraints.HORIZONTAL);
+		globalHighestScoreField = new JTextField(6);
+		globalHighestScoreField.setEditable(false);
+		globalHighestScoreField.setHorizontalAlignment(JTextField.RIGHT);
+		addComponent(panel, globalHighestScoreField, 1,1,1,1,new Insets(10,10,0,10),GridBagConstraints.LINE_START, GridBagConstraints.HORIZONTAL);
 		
 		JLabel globalHigherTileLabel = new JLabel("Global Higher Tile");
 		addComponent(panel, globalHigherTileLabel, 0, 0, 1, 1, new Insets(10,10,10,10),GridBagConstraints.LINE_START, GridBagConstraints.HORIZONTAL);
 		
-		globalHigherTileField = new JTextField(6);
-		globalHigherTileField.setEditable(false);
-		globalHigherTileField.setHorizontalAlignment(JTextField.RIGHT);
-		addComponent(panel, globalHigherTileField, 1,1,1,1,new Insets(10,10,10,10),GridBagConstraints.LINE_START, GridBagConstraints.HORIZONTAL);
+		globalHighestTileField = new JTextField(6);
+		globalHighestTileField.setEditable(false);
+		globalHighestTileField.setHorizontalAlignment(JTextField.RIGHT);
+		addComponent(panel, globalHighestTileField, 1,1,1,1,new Insets(10,10,10,10),GridBagConstraints.LINE_START, GridBagConstraints.HORIZONTAL);
 		
 		JLabel localHighScoreLabel = new JLabel("Global High Score");
 		addComponent(panel, localHighScoreLabel, 0, 0, 1, 1, new Insets(10,10,0,10),GridBagConstraints.LINE_START, GridBagConstraints.HORIZONTAL);
 		
-		localHighScoreField = new JTextField(6);
-		localHighScoreField.setEditable(false);
-		localHighScoreField.setHorizontalAlignment(JTextField.RIGHT);
-		addComponent(panel, localHighScoreField, 1,1,1,1,new Insets(10,10,0,10),GridBagConstraints.LINE_START, GridBagConstraints.HORIZONTAL);
+		localHighestScoreField = new JTextField(6);
+		localHighestScoreField.setEditable(false);
+		localHighestScoreField.setHorizontalAlignment(JTextField.RIGHT);
+		addComponent(panel, localHighestScoreField, 1,1,1,1,new Insets(10,10,0,10),GridBagConstraints.LINE_START, GridBagConstraints.HORIZONTAL);
 		
 		JLabel localHigherTileLabel = new JLabel("Global High Score");
 		addComponent(panel, localHigherTileLabel, 0, 0, 1, 1, new Insets(10,10,0,10),GridBagConstraints.LINE_START, GridBagConstraints.HORIZONTAL);
 		
-		localHigherTileField = new JTextField(6);
-		localHigherTileField.setEditable(false);
-		localHigherTileField.setHorizontalAlignment(JTextField.RIGHT);
-		addComponent(panel,localHigherTileField, 1,1,1,1,new Insets(10,10,0,10),GridBagConstraints.LINE_START, GridBagConstraints.HORIZONTAL);
+		localHighestTileField = new JTextField(6);
+		localHighestTileField.setEditable(false);
+		localHighestTileField.setHorizontalAlignment(JTextField.RIGHT);
+		addComponent(panel,localHighestTileField, 1,1,1,1,new Insets(10,10,0,10),GridBagConstraints.LINE_START, GridBagConstraints.HORIZONTAL);
 		
 		
 	}
@@ -72,6 +74,13 @@ public class Score {
 	public JPanel getPanel()
 	{
 		return panel;
+	}
+	
+	public void updatePartControl(){
+		globalHighestScoreField.setText(numformat.format(model.getGlobalHighestScore()));
+		globalHighestTileField.setText(numformat.format(model.getGlobalHighestTile()));
+		localHighestScoreField.setText(numformat.format(model.getLocalHighestScore()));
+		localHighestTileField.setText(numformat.format(model.getLocalHighestTile()));
 	}
 	
 	

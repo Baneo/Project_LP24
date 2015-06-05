@@ -1,11 +1,14 @@
 package lp24.project;
 
-import java.awt.FlowLayout;
+import java.awt.*;
 
 import javax.swing.Box;
 import javax.swing.BoxLayout;
+import javax.swing.InputMap;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
+import javax.swing.KeyStroke;
+
 
 public class Frame {
 	
@@ -59,28 +62,38 @@ public class Frame {
 		sidePanel.add(controlPanel.getPanel());
 		
 		mainPanel.add(sidePanel);
+	}
 		
-		/*private void setKeyBindings()
+		private void setKeyBindings()
 		{
-			Inputs inputs = panel.getInputMap(JPanel.WHEN_IN_FOCUSED_WINDOW);
+			InputMap inputs = panel.getInputMap(JPanel.WHEN_IN_FOCUSED_WINDOW);
 			inputs.put(KeyStroke.getKeyStroke("UP"), "up arrow");
 			inputs.put(KeyStroke.getKeyStroke("DOWN"), "down arrow");
 			inputs.put(KeyStroke.getKeyStroke("LEFT"), "left arrow");
 			inputs.put(KeyStroke.getKeyStroke("RIGHT"), "right arrow");
 			
-			inputs.panel.getInputMap(JPanel.WHEN_FOCUSED);
+			inputs = panel.getInputMap(JPanel.WHEN_FOCUSED);
 			inputs.put(KeyStroke.getKeyStroke("UP"), "up arrow");
 			inputs.put(KeyStroke.getKeyStroke("DOWN"), "down arrow");
 			inputs.put(KeyStroke.getKeyStroke("LEFT"), "left arrow");
 			inputs.put(KeyStroke.getKeyStroke("RIGHT"), "right arrow");
 			
-			panel.getActionMap().put("up arrow", new UpAction(this, model));
-			panel.getActionMap().put("down arrow", new DownAction(this, model));
-			panel.getActionMap().put("left arrow", new LeftAction(this, model));
-			panel.getActionMap().put("right arrow", new RightAction(this, model));
+			panel.getActionMap().put("up arrow", new MoveAction(this, model, Direction.up));
+			panel.getActionMap().put("down arrow", new MoveAction(this, model, Direction.down));
+			panel.getActionMap().put("left arrow", new MoveAction(this, model, Direction.left));
+			panel.getActionMap().put("right arrow", new MoveAction(this, model, Direction.right));
 		
-		}*/
+			
+		}
 		
+	
+	
+	public void repaintPanel(){
+		panel.repaint();
+	}
+	
+	public void updateScore(){
+		score.updatePartControl();
 	}
 
 }

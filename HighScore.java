@@ -31,6 +31,7 @@ public class HighScore {
         try {
             input = new FileInputStream(file);
             properties.load(input);
+            model.loadGrid(properties.getProperty("grid"));
             model.setGlobalHighestScore(Integer.parseInt(properties.getProperty("highestScore")));
             model.setGlobalHighestTile(Integer.parseInt(properties.getProperty("highestTile")));
             model.setLocalHighestScore(Integer.parseInt(properties.getProperty("localHighestScore")));
