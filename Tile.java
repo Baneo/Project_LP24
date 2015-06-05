@@ -10,7 +10,6 @@ import java.awt.image.BufferedImage;
 
 public class Tile {
 	
-	private static final int CELL_WIDTH = 120;
 	private int value;
 	private Point tileLocation;
 	
@@ -21,7 +20,7 @@ public class Tile {
 	
 	public static int getTileWidth()
 	{
-		return CELL_WIDTH;
+		return 120;
 	}
 	
 	public int getValue()
@@ -57,14 +56,14 @@ public class Tile {
 		if (value == 0)
 		{
 			g.setColor(Color.GRAY);
-			g.fillRect(tileLocation.x, tileLocation.y, CELL_WIDTH, CELL_WIDTH);
+			g.fillRect(tileLocation.x, tileLocation.y, 120, 120);
 		}
 		else
 		{
 			Font font  = g.getFont();
 			FontRenderContext fontRenderContext = new FontRenderContext(null, true, true);
 			String tileValue = Integer.toString(value);
-			BufferedImage tileImage = createImage(font, fontRenderContext, CELL_WIDTH, tileValue);
+			BufferedImage tileImage = createImage(font, fontRenderContext, 120, tileValue);
 			g.drawImage(tileImage, tileLocation.x, tileLocation.y, null);
 		}
 	}
