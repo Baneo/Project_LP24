@@ -164,7 +164,7 @@ public class Model {
 	
 	public Dimension getSize()
 	{
-		int dimension = 8 * Tile.getTileWidth() + FRAME_THICKNESS *5;
+		int dimension = 8 * Tile.getTileWidth() + FRAME_THICKNESS *9;
 		return new Dimension(dimension, dimension);
 	}
 	

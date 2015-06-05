@@ -9,7 +9,6 @@ import javax.swing.JPanel;
 
 public class ControlPanel {
 
-	private static final Insets regularInsets = new Insets(10, 10, 0, 10);
 	private Frame frame;
 	private Model model;
 	private JPanel panel;
@@ -18,16 +17,20 @@ public class ControlPanel {
 	{
 		this.frame = frame;
 		this.model = model;
-		//StartGameActionListener actionListener = new StartGameActionListener(frame, model);
+		
+					//StartGameActionListener actionListener = new StartGameActionListener(frame, model);
+					
 		panel = new JPanel();
 		panel.setLayout(new GridBagLayout());
-		JButton startButton = new JButton("Start");
-		//startButton.addActionListener(actionListener);
+		JButton startButton = new JButton("Start The Game");
+		
+					//startButton.addActionListener(actionListener);
+					
 		int x = 0;
 		int y = 1;
 		int width = 1;
 		int height = 1;
-		Insets inset = regularInsets;
+		Insets inset = new Insets(10, 10, 0, 10);;
 		int anchor = GridBagConstraints.LINE_START;
 		int fill = GridBagConstraints.HORIZONTAL;
 		GridBagConstraints gridBagConstraints = new GridBagConstraints(x,y,width,height,1.0D,1.0D,anchor,fill,inset,0,0);

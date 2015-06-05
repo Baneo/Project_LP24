@@ -60,6 +60,11 @@ public class Frame {
 		
 		mainPanel.add(sidePanel);
 		
+		frame.add(mainPanel);
+		frame.setLocationByPlatform(true);
+		frame.pack();
+		frame.setVisible(true);
+		
 		/*private void setKeyBindings()
 		{
 			Inputs inputs = panel.getInputMap(JPanel.WHEN_IN_FOCUSED_WINDOW);

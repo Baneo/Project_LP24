@@ -1,11 +1,12 @@
 package lp24.project;
 
-import java.awt.Dimension;
 import java.awt.Graphics;
 
 import javax.swing.JPanel;
 
 public class Panel extends JPanel{
+	
+	private static final long serialVersionUID = 7854213652984521352L;
 	
 	private Model model;
 	private GameOverScreen gameOver;
