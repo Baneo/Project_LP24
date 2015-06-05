@@ -11,8 +11,11 @@ import java.util.Properties;
 
 public class HighScore {
 	
-	private static final String higherTile = "higherTile";
-	private static final String highScore = "highScore";
+	private static final String grid = "grid";
+	private static final String highestTile = "highestTile";
+	private static final String highestScore = "highestScore";
+	private static final String localHighestTile = "localHighestTile";
+	private static final String localHighestScore = "localHighestScore";
 	private Model model;
 	
 	public HighScore(Model model)
@@ -28,8 +31,10 @@ public class HighScore {
         try {
             input = new FileInputStream(file);
             properties.load(input);
-            model.setHigherScore(Integer.parseInt(properties.getProperty("highScore")));
-            model.setHigherTile(Integer.parseInt(properties.getProperty("higherTile")));
+            model.setGlobalHighestScore(Integer.parseInt(properties.getProperty("highestScore")));
+            model.setGlobalHighestTile(Integer.parseInt(properties.getProperty("highestTile")));
+            model.setLocalHighestScore(Integer.parseInt(properties.getProperty("localHighestScore")));
+            model.setLocalHighestTile(Integer.parseInt(properties.getProperty("localHighestTile")));
         } catch (FileNotFoundException exception) {
              
         } catch (IOException exception) {
@@ -40,8 +45,8 @@ public class HighScore {
 	public void save()
 	{
 		Properties properties = new Properties();
-        properties.setProperty("highScore", Integer.toString(model.getHigherScore()));
-        properties.setProperty("highCell", Integer.toString(model.getHigherTile()));
+        properties.setProperty("highScore", Integer.toString(model.getGlobalHighestScore()));
+        properties.setProperty("highCell", Integer.toString(model.getGlobalHighestTile()));
         OutputStream output = null;
         File file = new File("jjq.data");
          
