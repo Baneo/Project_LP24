@@ -15,7 +15,7 @@ public class HighScore {
 	private static final String highestTile = "highestTile";
 	private static final String highestScore = "highestScore";
 	private static final String localHighestTile = "localHighestTile";
-	private static final String localHighestScore = "localHighestScore";
+	private static final String localScore = "localScore";
 	private Model model;
 	
 	public HighScore(Model model)
@@ -34,7 +34,7 @@ public class HighScore {
             model.loadGrid(properties.getProperty("grid"));
             model.setGlobalHighestScore(Integer.parseInt(properties.getProperty("highestScore")));
             model.setGlobalHighestTile(Integer.parseInt(properties.getProperty("highestTile")));
-            model.setLocalHighestScore(Integer.parseInt(properties.getProperty("localHighestScore")));
+            model.setLocalScore(Integer.parseInt(properties.getProperty("localScore")));
             model.setLocalHighestTile(Integer.parseInt(properties.getProperty("localHighestTile")));
         } catch (FileNotFoundException exception) {
              

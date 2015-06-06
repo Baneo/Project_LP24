@@ -17,7 +17,7 @@ public class Score {
 	private JPanel panel;
 	private JTextField globalHighestScoreField;
 	private JTextField globalHighestTileField;
-	private JTextField localHighestScoreField;
+	private JTextField localScoreField;
 	private JTextField localHighestTileField;
 	private static final NumberFormat numformat = NumberFormat.getInstance();
 	
@@ -49,10 +49,10 @@ public class Score {
 		JLabel localHighScoreLabel = new JLabel("Global High Score");
 		addComponent(panel, localHighScoreLabel, 0, 0, 1, 1, new Insets(10,10,0,10),GridBagConstraints.LINE_START, GridBagConstraints.HORIZONTAL);
 		
-		localHighestScoreField = new JTextField(6);
-		localHighestScoreField.setEditable(false);
-		localHighestScoreField.setHorizontalAlignment(JTextField.RIGHT);
-		addComponent(panel, localHighestScoreField, 1,1,1,1,new Insets(10,10,0,10),GridBagConstraints.LINE_START, GridBagConstraints.HORIZONTAL);
+		localScoreField = new JTextField(6);
+		localScoreField.setEditable(false);
+		localScoreField.setHorizontalAlignment(JTextField.RIGHT);
+		addComponent(panel, localScoreField, 1,1,1,1,new Insets(10,10,0,10),GridBagConstraints.LINE_START, GridBagConstraints.HORIZONTAL);
 		
 		JLabel localHigherTileLabel = new JLabel("Global High Score");
 		addComponent(panel, localHigherTileLabel, 0, 0, 1, 1, new Insets(10,10,0,10),GridBagConstraints.LINE_START, GridBagConstraints.HORIZONTAL);
@@ -79,7 +79,7 @@ public class Score {
 	public void updatePartControl(){
 		globalHighestScoreField.setText(numformat.format(model.getGlobalHighestScore()));
 		globalHighestTileField.setText(numformat.format(model.getGlobalHighestTile()));
-		localHighestScoreField.setText(numformat.format(model.getLocalHighestScore()));
+		localScoreField.setText(numformat.format(model.getLocalScore()));
 		localHighestTileField.setText(numformat.format(model.getLocalHighestTile()));
 	}
 	

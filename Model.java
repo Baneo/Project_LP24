@@ -13,8 +13,9 @@ public class Model {
 
 	private int globalHighestScore;
 	private int globalHighestTile;
-	private int LocalHighestScore;
-	private int LocalHighestTile;
+	private int localScore;
+	private int localHighestTile;
+	private boolean gameWon;
 	
 	private Tile[][] grid;
 	
@@ -49,18 +50,18 @@ public class Model {
 	
 	public void setHighScores()
 	{
-		if(LocalHighestScore > globalHighestScore)
+		if(localScore > globalHighestScore)
 		{
-			globalHighestScore = LocalHighestScore;
+			globalHighestScore = localScore;
 		}
 		
-		if(LocalHighestTile > globalHighestTile)
+		if(localHighestTile > globalHighestTile)
 		{
-			globalHighestTile = LocalHighestTile;
+			globalHighestTile = localHighestTile;
 		}
 		
-		LocalHighestScore = 0;
-		LocalHighestTile = 0;
+		localScore = 0;
+		localHighestTile = 0;
 	}
 	
 	public void setGlobalHighestScore(int highScore) 
@@ -91,20 +92,20 @@ public class Model {
 		return globalHighestTile;
 	}
 	
-	public int getLocalHighestScore() {
-		return LocalHighestScore;
+	public int getLocalScore() {
+		return localScore;
 	}
 
-	public void setLocalHighestScore(int localHighestScore) {
-		LocalHighestScore = localHighestScore;
+	public void setLocalScore(int localScore) {
+		this.localScore = localScore;
 	}
 
 	public int getLocalHighestTile() {
-		return LocalHighestTile;
+		return localHighestTile;
 	}
 
 	public void setLocalHighestTile(int localHighestTile) {
-		LocalHighestTile = localHighestTile;
+		this.localHighestTile = localHighestTile;
 	}
 
 	public boolean isGameOver()
@@ -420,5 +421,19 @@ public class Model {
 		return hasMoved;
 	}
 	
+	public void updateScore(int value, TileColor color){
+		localScore+=value;
+		if(localScore>globalHighestScore){
+			globalHighestScore = localScore;
+			isWin();
+		}
+		
+	}
+	
+	public void isWin(){
+		if(!gameWon && localHighestTile>=2048){
+			gameWon=true;
+		}
+	}
 	
 }
