@@ -6,6 +6,7 @@ import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
+import java.io.ObjectOutputStream;
 import java.io.OutputStream;
 import java.util.Properties;
 
@@ -32,10 +33,12 @@ public class HighScore {
             input = new FileInputStream(file);
             properties.load(input);
             model.loadGrid(properties.getProperty("grid"));
-            model.setGlobalHighestScore(Integer.parseInt(properties.getProperty("highestScore")));
-            model.setGlobalHighestTile(Integer.parseInt(properties.getProperty("highestTile")));
+            model.setGlobalHighestScore(Integer.parseInt(properties.getProperty("globalHighestScore")));
+            model.setGlobalHighestTile(Integer.parseInt(properties.getProperty("globalHighestTile")));
             model.setLocalScore(Integer.parseInt(properties.getProperty("localScore")));
             model.setLocalHighestTile(Integer.parseInt(properties.getProperty("localHighestTile")));
+            model.setGameWonBlue(Integer.parseInt(properties.getProperty("gameWonBlue")));
+            model.setGameWonRed(Integer.parseInt(properties.getProperty("gameWonRed")));
         } catch (FileNotFoundException exception) {
              
         } catch (IOException exception) {
@@ -46,8 +49,14 @@ public class HighScore {
 	public void save()
 	{
 		Properties properties = new Properties();
-        properties.setProperty("highScore", Integer.toString(model.getGlobalHighestScore()));
-        properties.setProperty("highCell", Integer.toString(model.getGlobalHighestTile()));
+		properties.setProperty("globalHighestScore", Integer.toString(model.getGlobalHighestScore()));
+        properties.setProperty("globalHighestTile", Integer.toString(model.getGlobalHighestTile()));
+        properties.setProperty("localScore", Integer.toString(model.getLocalScore()));
+        properties.setProperty("localHighestTile", Integer.toString(model.getLocalHighestTile()));
+        properties.setProperty("gameWonBlue", Integer.toString(model.getGameWonBlue()));
+        properties.setProperty("gameWonRed", Integer.toString(model.getGameWonRed()));
+        properties.setProperty("grid", model.toStringGrid());
+        
         OutputStream output = null;
         File file = new File("jjq.data");
          
@@ -68,7 +77,7 @@ public class HighScore {
         } catch (IOException exception) {
             exception.printStackTrace();
         }
-         
+        
 	}
 
 }

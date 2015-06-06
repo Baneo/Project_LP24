@@ -3,10 +3,12 @@ package lp24.project;
 import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Graphics;
+import java.io.Serializable;
 import java.util.Random;
 
 
-public class Model {
+
+public class Model{
 
 	
 	private static final int FRAME_THICKNESS = 16;
@@ -15,6 +17,9 @@ public class Model {
 	private int globalHighestTile;
 	private int localScore;
 	private int localHighestTile;
+	
+	private int gameWonRed;
+	private int gameWonBlue;
 	private boolean gameWon;
 	
 	private Tile[][] grid;
@@ -108,6 +113,30 @@ public class Model {
 		this.localHighestTile = localHighestTile;
 	}
 
+	public int getGameWonRed() {
+		return gameWonRed;
+	}
+
+	public void setGameWonRed(int gameWonRed) {
+		this.gameWonRed = gameWonRed;
+	}
+
+	public int getGameWonBlue() {
+		return gameWonBlue;
+	}
+
+	public void setGameWonBlue(int gameWonBlue) {
+		this.gameWonBlue = gameWonBlue;
+	}
+
+	public Tile[][] getGrid() {
+		return grid;
+	}
+
+	public void setGrid(Tile[][] grid) {
+		this.grid = grid;
+	}
+
 	public boolean isGameOver()
 	{
 		if(isGridFull() && isMoveImpossible())
@@ -162,14 +191,22 @@ public class Model {
 	public void addTile()
 	{
 		int value;
+		boolean rightLocation = false;
+		TileColor color;
 		
 		if(random.nextInt(10) < 8)
 		{ value = 2; }
 		else
 		{ value = 4; }
-		
-		boolean rightLocation = false;
-		
+
+		boolean notBlack = (random.nextInt(10000) < 9900) ? true : false;
+        if(notBlack){
+        	color = (random.nextInt(10000) < 5000) ? TileColor.blue : TileColor.red;
+        }
+        else{
+        	color = TileColor.black;
+        }
+         
 		while (rightLocation == false)
 		{
 			int x = random.nextInt(8);
@@ -177,10 +214,14 @@ public class Model {
 			
 			if(grid[x][y].isEmpty() == true)
 			{
-				rightLocation = true;
+				
 				StringBuilder stringBuilder = new StringBuilder();
 				stringBuilder.append("Tile added at[" + x + "][" + y + "]");
 				System.out.println(stringBuilder.toString());
+				
+				rightLocation = true;
+				grid[x][y].setValue(value);
+				grid[x][y].setTileColor(color);
 			}
 			
 		}
@@ -214,7 +255,7 @@ public class Model {
 			cell=rows[indexRows].split(";");
 			
 			for(String tempData : cell){
-				data=cell[indexCell].split("%");
+				data=cell[indexCell].split("§");
 				grid[indexRows][indexCell]=new Tile(Integer.parseInt(data[0]));
 				
 				switch (data[1]){
@@ -226,13 +267,30 @@ public class Model {
 						break;
 					case "black":grid[indexRows][indexCell].setTileColor(TileColor.black);
 						break;
-				}
+				}// end of switch
 			
+			}// end  of for loop
+		}// end of for loop
+	}// end of loadGrid()
+	
+	
+	public String toStringGrid(){
+		
+		String savedGrid="";
+		int index;
+		
+		for(index=0;index<8;index++){
+			for(Tile tile : grid[index]){
+				savedGrid += tile.getValue() +"§"+ tile.getTileColor().toString()+";";
 			}
+			savedGrid += ";";
 		}
 		
-		
+		return savedGrid;
 	}
+		
+		
+	
 	
 	public boolean moveUp() {
         boolean hasMoved = false;
@@ -425,15 +483,23 @@ public class Model {
 		localScore+=value;
 		if(localScore>globalHighestScore){
 			globalHighestScore = localScore;
-			isWin();
+			isWin(color);
 		}
 		
 	}
 	
-	public void isWin(){
-		if(!gameWon && localHighestTile>=2048){
+	public void isWin(TileColor color){
+		if(!gameWon && localHighestTile==2048){
 			gameWon=true;
+			if(color.equals(TileColor.blue)){
+				gameWonBlue++;
+			}
+			else{
+				gameWonRed++;
+			}
 		}
 	}
+	
+	
 	
 }
