@@ -22,7 +22,7 @@ public class Tile {
 	
 	public static int getTileWidth()
 	{
-		return 120;
+		return 71;
 	}
 	
 	public int getValue()
@@ -70,7 +70,7 @@ public class Tile {
 		if (value == 0)
 		{
 			g.setColor(Color.GRAY);
-			g.fillRect(tileLocation.x, tileLocation.y, 120, 120);
+			g.fillRect(tileLocation.x, tileLocation.y, 71, 71);
 		}
 		else
 		{

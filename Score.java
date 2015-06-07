@@ -30,37 +30,37 @@ public class Score {
 		panel = new JPanel();
 		panel.setLayout(new GridBagLayout());
 		
-		JLabel globalHighScoreLabel = new JLabel("Global High Score");
+		JLabel globalHighScoreLabel = new JLabel("Global Highest Score");
 		addComponent(panel, globalHighScoreLabel, 0, 0, 1, 1, new Insets(10,10,0,10),GridBagConstraints.LINE_START, GridBagConstraints.HORIZONTAL);
 		
 		globalHighestScoreField = new JTextField(6);
 		globalHighestScoreField.setEditable(false);
 		globalHighestScoreField.setHorizontalAlignment(JTextField.RIGHT);
-		addComponent(panel, globalHighestScoreField, 1,1,1,1,new Insets(10,10,0,10),GridBagConstraints.LINE_START, GridBagConstraints.HORIZONTAL);
+		addComponent(panel, globalHighestScoreField, 1,0,1,1,new Insets(10,10,0,10),GridBagConstraints.LINE_START, GridBagConstraints.HORIZONTAL);
 		
-		JLabel globalHigherTileLabel = new JLabel("Global Higher Tile");
-		addComponent(panel, globalHigherTileLabel, 0, 0, 1, 1, new Insets(10,10,10,10),GridBagConstraints.LINE_START, GridBagConstraints.HORIZONTAL);
+		JLabel globalHigherTileLabel = new JLabel("Global Highest Tile");
+		addComponent(panel, globalHigherTileLabel, 0, 1, 1, 1, new Insets(10,10,10,10),GridBagConstraints.LINE_START, GridBagConstraints.HORIZONTAL);
 		
 		globalHighestTileField = new JTextField(6);
 		globalHighestTileField.setEditable(false);
 		globalHighestTileField.setHorizontalAlignment(JTextField.RIGHT);
 		addComponent(panel, globalHighestTileField, 1,1,1,1,new Insets(10,10,10,10),GridBagConstraints.LINE_START, GridBagConstraints.HORIZONTAL);
 		
-		JLabel localHighScoreLabel = new JLabel("Global High Score");
-		addComponent(panel, localHighScoreLabel, 0, 0, 1, 1, new Insets(10,10,0,10),GridBagConstraints.LINE_START, GridBagConstraints.HORIZONTAL);
+		JLabel localHighScoreLabel = new JLabel("Score");
+		addComponent(panel, localHighScoreLabel, 0, 2, 1, 1, new Insets(10,10,0,10),GridBagConstraints.LINE_START, GridBagConstraints.HORIZONTAL);
 		
 		localScoreField = new JTextField(6);
 		localScoreField.setEditable(false);
 		localScoreField.setHorizontalAlignment(JTextField.RIGHT);
-		addComponent(panel, localScoreField, 1,1,1,1,new Insets(10,10,0,10),GridBagConstraints.LINE_START, GridBagConstraints.HORIZONTAL);
+		addComponent(panel, localScoreField, 1,2,1,1,new Insets(10,10,0,10),GridBagConstraints.LINE_START, GridBagConstraints.HORIZONTAL);
 		
-		JLabel localHigherTileLabel = new JLabel("Global High Score");
-		addComponent(panel, localHigherTileLabel, 0, 0, 1, 1, new Insets(10,10,0,10),GridBagConstraints.LINE_START, GridBagConstraints.HORIZONTAL);
+		JLabel localHighestTileLabel = new JLabel("Highest Tile");
+		addComponent(panel, localHighestTileLabel, 0, 3, 1, 1, new Insets(10,10,0,10),GridBagConstraints.LINE_START, GridBagConstraints.HORIZONTAL);
 		
 		localHighestTileField = new JTextField(6);
 		localHighestTileField.setEditable(false);
 		localHighestTileField.setHorizontalAlignment(JTextField.RIGHT);
-		addComponent(panel,localHighestTileField, 1,1,1,1,new Insets(10,10,0,10),GridBagConstraints.LINE_START, GridBagConstraints.HORIZONTAL);
+		addComponent(panel,localHighestTileField, 1,3,2,1,new Insets(10,10,0,10),GridBagConstraints.LINE_START, GridBagConstraints.HORIZONTAL);
 		
 		
 	}
