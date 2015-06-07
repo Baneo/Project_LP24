@@ -49,7 +49,7 @@ public class Frame {
 			
 		});*/
 		
-		//setKeyBindings();
+		setKeyBindings();
 		
 		JPanel mainPanel = new JPanel();
 		mainPanel.setLayout(new FlowLayout());
@@ -63,6 +63,11 @@ public class Frame {
 		sidePanel.add(controlPanel.getPanel2());
 		
 		mainPanel.add(sidePanel);
+		
+		frame.add(mainPanel);
+		frame.setLocationByPlatform(true);
+		frame.pack();
+		frame.setVisible(true);
 	}
 		
 		private void setKeyBindings()
