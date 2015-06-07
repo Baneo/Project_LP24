@@ -1,6 +1,8 @@
 package lp24.project;
 
-import java.awt.*;
+import java.awt.FlowLayout;
+import java.awt.event.WindowAdapter;
+import java.awt.event.WindowEvent;
 
 import javax.swing.Box;
 import javax.swing.BoxLayout;
@@ -35,19 +37,17 @@ public class Frame {
 		
 		frame = new JFrame();
 		frame.setTitle("Colored 2048");
-		frame.setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
 		
-		/*frame.addWindowFocusListener(new WindowAdapter()
-		{
-			public void windowClosing(WindowEvent event)
-			{
-				model.setHighScores(false);
-				highScore.save();
-				frame.dispose();
-				System.exit(0);
-			}
-			
-		});*/
+		frame.setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
+	    frame.addWindowListener(new WindowAdapter() {
+	            @Override
+	            public void windowClosing(WindowEvent event) {
+	            	model.setHighScores(false);
+					highScore.save();
+					frame.dispose();
+					System.exit(0);
+	            }
+	        });
 		
 		setKeyBindings();
 		

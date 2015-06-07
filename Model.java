@@ -208,11 +208,13 @@ public class Model{
 	
 	public boolean isMoveImpossible()
 	{
+		boolean noMove = true;
+		
 		for (int i = 0 ; i < 8 ; i++) {
             for (int j = 0 ; j < 7; j++) {
                 
                 if (grid[i][j].getValue() == grid[i][j + 1].getValue() && grid[i][j].getTileColor().equals(grid[i][j+1].getTileColor()) && !grid[i][j].getTileColor().equals(TileColor.black)) {
-                    return false;
+                    noMove = false;
                 }
             }
         }
@@ -221,12 +223,12 @@ public class Model{
             for (int i = 0 ; i < 7 ; i++) {
                 
             	if (grid[i][j].getValue() == grid[i + 1][j].getValue() && grid[i][j].getTileColor().equals(grid[i + 1][j].getTileColor()) && !grid[i][j].getTileColor().equals(TileColor.black)) {
-                        return false;
+            		noMove = false;
                 }
             }
         }
          
-        return true;
+        return noMove;
 	}
 	
 	public void addTile()
@@ -263,6 +265,7 @@ public class Model{
 				rightLocation = true;
 				grid[x][y].setValue(value);
 				grid[x][y].setTileColor(color);
+				updateScore(value, color);
 			}
 			
 		}
@@ -533,9 +536,16 @@ public String toStringGrid(){
 	
 	public void updateScore(int value, TileColor color){
 		localScore+=value;
+		
+		if(localHighestTile<value){
+			localHighestTile =  value;
+		}
 		if(localScore>globalHighestScore){
 			globalHighestScore = localScore;
 			isWin(color);
+		}
+		if(localHighestTile>globalHighestTile){
+			globalHighestTile = localHighestTile;
 		}
 		
 	}

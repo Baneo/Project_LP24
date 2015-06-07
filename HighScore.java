@@ -38,15 +38,14 @@ public class HighScore {
             input = new FileInputStream(file);
             properties.load(input);
             
-            // COMMENTAIRES A ENLEVER APRES LA PREMIERE SAUVEGARDE DE PARTIE : PAS DE SAVE -> NULLPOINTER EXCEPTION AU LANCEMENET
-            /*model.loadGrid(properties.getProperty("grid"));
+            model.loadGrid(properties.getProperty("grid"));
             model.setGlobalHighestScore(Integer.parseInt(properties.getProperty(globalHighestScore)));
             model.setGlobalHighestTile(Integer.parseInt(properties.getProperty(globalHighestTile)));
             model.setLocalScore(Integer.parseInt(properties.getProperty(localScore)));
             model.setLocalHighestTile(Integer.parseInt(properties.getProperty(localHighestTile)));
             model.setBlueWins(Integer.parseInt(properties.getProperty(blueWins)));
             model.setRedWins(Integer.parseInt(properties.getProperty(redWins)));
-            model.setWinColor(properties.getProperty(winColor));*/
+            model.setWinColor(properties.getProperty(winColor));
         } catch (FileNotFoundException exception) {
              
         } catch (IOException exception) {
