@@ -41,8 +41,8 @@ public class Frame {
 		{
 			public void windowClosing(WindowEvent event)
 			{
-				model.setHighScores();
-				highScore.saveProperties();
+				model.setHighScores(false);
+				highScore.save();
 				frame.dispose();
 				System.exit(0);
 			}
@@ -59,7 +59,8 @@ public class Frame {
 		sidePanel.setLayout(new BoxLayout(sidePanel, BoxLayout.PAGE_AXIS));
 		sidePanel.add(score.getPanel());
 		sidePanel.add(Box.createVerticalStrut(30));
-		sidePanel.add(controlPanel.getPanel());
+		sidePanel.add(controlPanel.getPanel1());
+		sidePanel.add(controlPanel.getPanel2());
 		
 		mainPanel.add(sidePanel);
 	}

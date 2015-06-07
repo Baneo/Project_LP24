@@ -6,6 +6,11 @@ import java.awt.event.ActionEvent;
 
 public class MoveAction extends AbstractAction{
 	
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = -3057256846265903098L;
+	
 	private Frame frame;
 	private Model model;
 	private Direction direction;

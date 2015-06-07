@@ -3,8 +3,8 @@ package lp24.project;
 import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Graphics;
-import java.io.Serializable;
 import java.util.Random;
+
 
 
 
@@ -18,22 +18,35 @@ public class Model{
 	private int localScore;
 	private int localHighestTile;
 	
-	private int gameWonRed;
-	private int gameWonBlue;
+	private int redWins;
+	private int blueWins;
 	private boolean gameWon;
 	
 	private Tile[][] grid;
 	
 	private Random random;
 	
+	/*
+	 * TileColor : enum, value = blue, red, green, black;
+	 * winColor's value is black until a 2048 tile is created with blue or red color. At this moment, winColor takes this color
+	 */
+	private TileColor winColor; 
+	
 	private boolean arrow;
 	
 	public Model()
 	{
 		this.grid = new Tile[8][8];
+		initialization();
 		this.random = new Random();
 		this.arrow = false;
-		initialization();
+		
+		this.globalHighestScore = 0;
+        this.globalHighestTile = 0;
+        this.localScore = 0;
+        this.localHighestTile = 0;
+        
+        this.winColor=TileColor.black;
 	}
 	
 	public void initialization()
@@ -45,6 +58,7 @@ public class Model{
 			for(int j = 0 ; j < 8 ; j++)
 			{
 				Tile tile = new Tile(0);
+				tile.setTileColor(TileColor.black);
 				tile.setTileLocation(tileLocationX, tileLocationY);
 				grid[i][j] = tile;
 				tileLocationY = tileLocationY + FRAME_THICKNESS + Tile.getTileWidth();
@@ -53,7 +67,7 @@ public class Model{
 		}
 	}
 	
-	public void setHighScores()
+	public void setHighScores(boolean newGame)
 	{
 		if(localScore > globalHighestScore)
 		{
@@ -65,8 +79,10 @@ public class Model{
 			globalHighestTile = localHighestTile;
 		}
 		
-		localScore = 0;
-		localHighestTile = 0;
+		if(isGameOver() || newGame){
+        	localScore = 0;
+        	localHighestTile = 0;
+        }    
 	}
 	
 	public void setGlobalHighestScore(int highScore) 
@@ -113,20 +129,20 @@ public class Model{
 		this.localHighestTile = localHighestTile;
 	}
 
-	public int getGameWonRed() {
-		return gameWonRed;
+	public int getRedWins() {
+		return redWins;
 	}
 
-	public void setGameWonRed(int gameWonRed) {
-		this.gameWonRed = gameWonRed;
+	public void setRedWins(int gameWonRed) {
+		this.redWins = gameWonRed;
 	}
 
-	public int getGameWonBlue() {
-		return gameWonBlue;
+	public int getBlueWins() {
+		return blueWins;
 	}
 
-	public void setGameWonBlue(int gameWonBlue) {
-		this.gameWonBlue = gameWonBlue;
+	public void setBlueWins(int gameWonBlue) {
+		this.blueWins = gameWonBlue;
 	}
 
 	public Tile[][] getGrid() {
@@ -135,6 +151,30 @@ public class Model{
 
 	public void setGrid(Tile[][] grid) {
 		this.grid = grid;
+	}
+	
+	public TileColor getWinColor() {
+		return winColor;
+	}
+
+	public void setWinColor(TileColor winColor) {
+		this.winColor = winColor;
+	}
+	
+	public void setWinColor(String winColor) {
+		TileColor color=TileColor.black;
+		switch (winColor) {
+		case "blue" : color=TileColor.blue;
+			break;
+		case "red" : color=TileColor.red;
+			break;
+		case "breen" : color=TileColor.green;
+			break;
+		case "black" : color=TileColor.black;
+			break;
+		}
+		
+		this.winColor = color;
 	}
 
 	public boolean isGameOver()
@@ -248,15 +288,17 @@ public class Model{
 	
 	public void loadGrid(String loadedGrid){
 		String[] rows = loadedGrid.split(";;");
-		String[] cell, data;
+		String[] cell;
+		String[] data;
 		int indexCell=0, indexRows=0;
 		
-		for(String tempCell : rows){
-			cell=rows[indexRows].split(";");
+		for(String tempCell : rows){	//pour chaque ligne de la grid
+			indexCell=0;
+			cell=tempCell.split(";");	//on split les cellules
 			
-			for(String tempData : cell){
-				data=cell[indexCell].split("§");
-				grid[indexRows][indexCell]=new Tile(Integer.parseInt(data[0]));
+			for(String tempData : cell){	//pour chaque cellule de la ligne
+				data=tempData.split("_");	//on split les data de la cellule
+				grid[indexRows][indexCell].setValue(Integer.parseInt(data[0]));
 				
 				switch (data[1]){
 					case "red":	grid[indexRows][indexCell].setTileColor(TileColor.red);
@@ -268,22 +310,33 @@ public class Model{
 					case "black":grid[indexRows][indexCell].setTileColor(TileColor.black);
 						break;
 				}// end of switch
-			
+				indexCell++;
 			}// end  of for loop
+			indexRows++;
 		}// end of for loop
 	}// end of loadGrid()
 	
 	
-	public String toStringGrid(){
+public String toStringGrid(){
 		
 		String savedGrid="";
-		int index;
+		int indexRows, indexCell;
+		boolean firstRow=true;
+		Tile activeCell;
 		
-		for(index=0;index<8;index++){
-			for(Tile tile : grid[index]){
-				savedGrid += tile.getValue() +"§"+ tile.getTileColor().toString()+";";
+		for(indexRows=0;indexRows<8;indexRows++){
+			if(firstRow){
+				firstRow=false;
 			}
-			savedGrid += ";";
+			else{
+				savedGrid += ";";
+			}
+			for(indexCell=0;indexCell<8;indexCell++){
+				activeCell = grid[indexRows][indexCell];
+				
+				savedGrid += Integer.toString(activeCell.getValue())+"_"+activeCell.getTileColor().toString()+";";
+			}
+			
 		}
 		
 		return savedGrid;
@@ -395,7 +448,7 @@ public class Model{
         for (int y = 0; y < 8; y++) {
             boolean rowHasMoved = false;
             do {
-            	boolean columnHasMoved = false;
+            	rowHasMoved = false;
                 for (int x = 0; x < 7; x++) {
                     int xNext = x + 1;
                     boolean TileHasMoved = moveTile(xNext, y, x, y);
@@ -489,13 +542,13 @@ public class Model{
 	}
 	
 	public void isWin(TileColor color){
-		if(!gameWon && localHighestTile==2048){
+		if(!gameWon && localHighestTile>=2048){
 			gameWon=true;
 			if(color.equals(TileColor.blue)){
-				gameWonBlue++;
+				blueWins++;
 			}
 			else{
-				gameWonRed++;
+				redWins++;
 			}
 		}
 	}
