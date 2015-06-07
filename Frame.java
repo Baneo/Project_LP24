@@ -73,6 +73,13 @@ public class Frame {
 		private void setKeyBindings()
 		{
 			InputMap inputs = panel.getInputMap(JPanel.WHEN_IN_FOCUSED_WINDOW);
+			
+			inputs.put(KeyStroke.getKeyStroke("Z"), "up arrow");
+	        inputs.put(KeyStroke.getKeyStroke("S"), "down arrow");
+	        inputs.put(KeyStroke.getKeyStroke("Q"), "left arrow");
+	        inputs.put(KeyStroke.getKeyStroke("D"), "right arrow");
+	        
+	        
 			inputs.put(KeyStroke.getKeyStroke("UP"), "up arrow");
 			inputs.put(KeyStroke.getKeyStroke("DOWN"), "down arrow");
 			inputs.put(KeyStroke.getKeyStroke("LEFT"), "left arrow");

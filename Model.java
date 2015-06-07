@@ -8,6 +8,7 @@ import java.util.Random;
 
 
 
+
 public class Model{
 
 	
@@ -210,7 +211,7 @@ public class Model{
 		for (int i = 0 ; i < 8 ; i++) {
             for (int j = 0 ; j < 7; j++) {
                 
-                if (grid[i][j].getValue() == grid[i][j + 1].getValue()) {
+                if (grid[i][j].getValue() == grid[i][j + 1].getValue() && grid[i][j].getTileColor().equals(grid[i][j+1].getTileColor()) && !grid[i][j].getTileColor().equals(TileColor.black)) {
                     return false;
                 }
             }
@@ -219,8 +220,8 @@ public class Model{
         for (int j = 0; j < 8; j++) {
             for (int i = 0 ; i < 7 ; i++) {
                 
-                if (grid[i][j].getValue() == grid[i + 1][j].getValue()) {
-                    return false;
+            	if (grid[i][j].getValue() == grid[i + 1][j].getValue() && grid[i][j].getTileColor().equals(grid[i + 1][j].getTileColor()) && !grid[i][j].getTileColor().equals(TileColor.black)) {
+                        return false;
                 }
             }
         }
@@ -426,18 +427,16 @@ public String toStringGrid(){
     public boolean moveLeft() {
         boolean hasMoved = false;
          
-        if (tryMoveUp()) 
-        	hasMoved = true;
+        if (tryMoveLeft())    hasMoved = true;
          
         for (int y = 0; y < 8; y++) {
-            for (int x = 0; x < 7; x++) {
+            for (int x = 0; x < (8 - 1); x++) {
                 int xNext = x + 1;
                 hasMoved = merge(xNext, y, x, y, hasMoved);
             }
         }
          
-        if (tryMoveLeft())
-        	hasMoved = true;
+        if (tryMoveLeft())    hasMoved = true;
          
         return hasMoved;
     }
@@ -448,11 +447,11 @@ public String toStringGrid(){
         for (int y = 0; y < 8; y++) {
             boolean rowHasMoved = false;
             do {
-            	rowHasMoved = false;
-                for (int x = 0; x < 7; x++) {
+                rowHasMoved = false;
+                for (int x = 0; x < (8 - 1); x++) {
                     int xNext = x + 1;
-                    boolean TileHasMoved = moveTile(xNext, y, x, y);
-                    if (TileHasMoved) {
+                    boolean tileHasMoved = moveTile(xNext, y, x, y);
+                    if (tileHasMoved) {
                         rowHasMoved = true;
                         hasMoved = true;
                     }

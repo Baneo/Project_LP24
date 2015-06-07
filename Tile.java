@@ -77,7 +77,7 @@ public class Tile {
 			Font font  = g.getFont();
 			FontRenderContext fontRenderContext = new FontRenderContext(null, true, true);
 			String tileValue = Integer.toString(value);
-			BufferedImage tileImage = createImage(font, fontRenderContext, 120, tileValue);
+			BufferedImage tileImage = createImage(font, fontRenderContext, 71, tileValue);
 			g.drawImage(tileImage, tileLocation.x, tileLocation.y, null);
 		}
 	}

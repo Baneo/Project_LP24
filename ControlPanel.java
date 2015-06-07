@@ -31,8 +31,8 @@ public class ControlPanel {
 			panel1 = new JPanel();
 			panel1.setLayout(new GridBagLayout());
 			JButton startButton = new JButton("Start New Game");
-			//StartNewGameActionListener actionListenerStart = new StartNewGameActionListener(frame, model);
-			//startButton.addActionListener(actionListenerStart);
+			StartNewGameActionListener actionListenerStart = new StartNewGameActionListener(frame, model);
+			startButton.addActionListener(actionListenerStart);
 			GridBagConstraints gridBagConstraintsStart = new GridBagConstraints(x,y,width,height,1.0D,1.0D,anchor,fill,inset,0,0);
 			panel1.add(startButton, gridBagConstraintsStart);
 		
@@ -41,8 +41,8 @@ public class ControlPanel {
 			panel2 = new JPanel();
 			panel2.setLayout(new GridBagLayout());
 			JButton continueButton = new JButton("Continue Previous Game");
-			//ContinueGameActionListener actionListenerContinue = new ContinueGameActionListener(frame, model);
-			//continueButton.addActionListener(actionListenerContinue);
+			ContinueGameActionListener actionListenerContinue = new ContinueGameActionListener(frame, model);
+			continueButton.addActionListener(actionListenerContinue);
 			GridBagConstraints gridBagConstraintsContinue = new GridBagConstraints(x,y+1,width,height,1.0D,1.0D,anchor,fill,inset,0,0);
 			panel2.add(continueButton, gridBagConstraintsContinue);
 	}
