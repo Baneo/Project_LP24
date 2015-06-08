@@ -9,7 +9,7 @@ import java.awt.font.FontRenderContext;
 import java.awt.geom.Rectangle2D;
 import java.awt.image.BufferedImage;
 
-public class GameOverScreen {
+public class GameOverScreen implements Runnable{
 	
 	private BufferedImage gameOver;
 	private Model model;
@@ -20,7 +20,7 @@ public class GameOverScreen {
 	
 	public void run()
 	{
-		String gameOverSentence = "YOU LOOSE, Game Over !";
+		String gameOverSentence = "Game Over";
 		Dimension d = model.getSize();
 		gameOver = new BufferedImage(d.width, d.height, BufferedImage.TYPE_INT_ARGB);
 		Graphics2D g = gameOver.createGraphics();
@@ -28,7 +28,7 @@ public class GameOverScreen {
 		g.setColor(new Color(255, 255, 255));
 		g.fillRect(0,  0, d.width, d.height);
 		g.setComposite(AlphaComposite.getInstance(AlphaComposite.SRC_OVER));
-		g.setColor(Color.BLUE);
+		g.setColor(Color.WHITE);
 		Font font = g.getFont();
 		Font largeFont = font.deriveFont(72.0F);
 		FontRenderContext fontRenderContext = new FontRenderContext(null, true, true);
@@ -38,7 +38,7 @@ public class GameOverScreen {
 		int rectangleX = (int) Math.round(rectangle.getX());
 		int rectangleY = (int) Math.round(rectangle.getY());
 		int x = (d.width/2)-(rectangleWidth/2)-rectangleX;
-		int y = (d.width/2)-(rectangleWidth/2)-rectangleY;
+		int y = (d.width/2)-(rectangleHeight/2)-rectangleY;
 		g.setFont(largeFont);
 		g.drawString(gameOverSentence,  x,  y);
 		g.dispose();
