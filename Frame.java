@@ -20,6 +20,7 @@ public class Frame {
 	private HighScore highScore;
 	private JFrame frame;
 	private Score score;
+	private PauseScreen pause;
 	
 	public Frame (Model model)
 	{
@@ -59,8 +60,9 @@ public class Frame {
 		sidePanel.setLayout(new BoxLayout(sidePanel, BoxLayout.PAGE_AXIS));
 		sidePanel.add(score.getPanel());
 		sidePanel.add(Box.createVerticalStrut(30));
-		sidePanel.add(controlPanel.getPanel1());
-		sidePanel.add(controlPanel.getPanel2());
+		sidePanel.add(controlPanel.getStart());
+		sidePanel.add(controlPanel.getContinue());
+		sidePanel.add(controlPanel.getExit());
 		
 		mainPanel.add(sidePanel);
 		
@@ -108,5 +110,14 @@ public class Frame {
 	public void updateScore(){
 		score.updatePartControl();
 	}
+	
+	public void exitGame() 
+	{		
+		model.setHighScores(false);
+		highScore.save();
+		frame.dispose();
+		System.exit(0);
+	}
+	
 
 }

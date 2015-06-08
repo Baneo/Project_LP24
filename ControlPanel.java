@@ -12,7 +12,7 @@ public class ControlPanel {
 	private static final Insets regularInsets = new Insets(10, 10, 0, 10);
 	private Frame frame;
 	private Model model;
-	private JPanel panel1, panel2;
+	private JPanel start, cont, exit;
 	
 	public ControlPanel(Frame frame, Model model)
 	{
@@ -28,33 +28,48 @@ public class ControlPanel {
 		int fill = GridBagConstraints.HORIZONTAL;
 		
 		// lignes de code pour le bouton " start new game"
-			panel1 = new JPanel();
-			panel1.setLayout(new GridBagLayout());
+			start = new JPanel();
+			start.setLayout(new GridBagLayout());
 			JButton startButton = new JButton("Start New Game");
 			StartNewGameActionListener actionListenerStart = new StartNewGameActionListener(frame, model);
 			startButton.addActionListener(actionListenerStart);
 			GridBagConstraints gridBagConstraintsStart = new GridBagConstraints(x,y,width,height,1.0D,1.0D,anchor,fill,inset,0,0);
-			panel1.add(startButton, gridBagConstraintsStart);
+			start.add(startButton, gridBagConstraintsStart);
 		
 		
 		// lignes de code pour le bouton "continue previous game"
-			panel2 = new JPanel();
-			panel2.setLayout(new GridBagLayout());
+			cont = new JPanel();
+			cont.setLayout(new GridBagLayout());
 			JButton continueButton = new JButton("Continue Previous Game");
 			ContinueGameActionListener actionListenerContinue = new ContinueGameActionListener(frame, model);
 			continueButton.addActionListener(actionListenerContinue);
 			GridBagConstraints gridBagConstraintsContinue = new GridBagConstraints(x,y+1,width,height,1.0D,1.0D,anchor,fill,inset,0,0);
-			panel2.add(continueButton, gridBagConstraintsContinue);
+			cont.add(continueButton, gridBagConstraintsContinue);
+			
+			//lignes du bouton exit
+			
+			exit = new JPanel();
+			exit.setLayout(new GridBagLayout());
+			JButton exitButton = new JButton("Exit Game");
+			ExitGameActionListener actionListenerExit = new ExitGameActionListener(frame, model);
+			exitButton.addActionListener(actionListenerExit);
+			GridBagConstraints gridBagConstraintsExit = new GridBagConstraints(x,y+2,width,height,1.0D,1.0D,anchor,fill,inset,0,0);
+			exit.add(exitButton, gridBagConstraintsExit);
 	}
 	
-	public JPanel getPanel1()
+	public JPanel getStart()
 	{
-		return panel1;
+		return start;
 	}
 	
-	public JPanel getPanel2()
+	public JPanel getContinue()
 	{
-		return panel2;
+		return cont;
+	}
+	
+	public JPanel getExit()
+	{
+		return exit;
 	}
 	
 }

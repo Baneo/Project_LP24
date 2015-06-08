@@ -22,6 +22,7 @@ public class Model{
 	private int redWins;
 	private int blueWins;
 	private boolean gameWon;
+	private boolean paused;
 	
 	private Tile[][] grid;
 	
@@ -48,6 +49,7 @@ public class Model{
         this.localHighestTile = 0;
         
         this.winColor=TileColor.black;
+        this.paused = true;
 	}
 	
 	public void initialization()
@@ -560,6 +562,16 @@ public String toStringGrid(){
 				redWins++;
 			}
 		}
+	}
+	
+	public boolean isGamePaused()
+	{
+		return paused;
+	}
+	
+	public void setPause(boolean pause)
+	{
+		this.paused = pause;
 	}
 	
 	

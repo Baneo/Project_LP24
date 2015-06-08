@@ -23,6 +23,7 @@ public class StartNewGameActionListener implements ActionListener {
         model.addTile();
         model.addTile();
         model.setWinColor(TileColor.black);
+        model.setPause(false);
          
         frame.repaintPanel();
         frame.updateScore();
