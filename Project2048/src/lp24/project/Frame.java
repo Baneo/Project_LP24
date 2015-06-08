@@ -1,11 +1,16 @@
 package lp24.project;
 
 import java.awt.FlowLayout;
+import java.awt.event.WindowAdapter;
+import java.awt.event.WindowEvent;
 
 import javax.swing.Box;
 import javax.swing.BoxLayout;
+import javax.swing.InputMap;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
+import javax.swing.KeyStroke;
+
 
 public class Frame {
 	
@@ -15,6 +20,7 @@ public class Frame {
 	private HighScore highScore;
 	private JFrame frame;
 	private Score score;
+	private PauseScreen pause;
 	
 	public Frame (Model model)
 	{
@@ -32,21 +38,19 @@ public class Frame {
 		
 		frame = new JFrame();
 		frame.setTitle("Colored 2048");
+		
 		frame.setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
+	    frame.addWindowListener(new WindowAdapter() {
+	            @Override
+	            public void windowClosing(WindowEvent event) {
+	            	model.setHighScores(false);
+					highScore.save();
+					frame.dispose();
+					System.exit(0);
+	            }
+	        });
 		
-		/*frame.addWindowFocusListener(new WindowAdapter()
-		{
-			public void windowClosing(WindowEvent event)
-			{
-				model.setHighScores();
-				highScore.saveProperties();
-				frame.dispose();
-				System.exit(0);
-			}
-			
-		});*/
-		
-		//setKeyBindings();
+		setKeyBindings();
 		
 		JPanel mainPanel = new JPanel();
 		mainPanel.setLayout(new FlowLayout());
@@ -56,7 +60,9 @@ public class Frame {
 		sidePanel.setLayout(new BoxLayout(sidePanel, BoxLayout.PAGE_AXIS));
 		sidePanel.add(score.getPanel());
 		sidePanel.add(Box.createVerticalStrut(30));
-		sidePanel.add(controlPanel.getPanel());
+		sidePanel.add(controlPanel.getStart());
+		sidePanel.add(controlPanel.getContinue());
+		sidePanel.add(controlPanel.getExit());
 		
 		mainPanel.add(sidePanel);
 		
@@ -64,28 +70,54 @@ public class Frame {
 		frame.setLocationByPlatform(true);
 		frame.pack();
 		frame.setVisible(true);
-		
-		/*private void setKeyBindings()
-		{
-			Inputs inputs = panel.getInputMap(JPanel.WHEN_IN_FOCUSED_WINDOW);
-			inputs.put(KeyStroke.getKeyStroke("UP"), "up arrow");
-			inputs.put(KeyStroke.getKeyStroke("DOWN"), "down arrow");
-			inputs.put(KeyStroke.getKeyStroke("LEFT"), "left arrow");
-			inputs.put(KeyStroke.getKeyStroke("RIGHT"), "right arrow");
-			
-			inputs.panel.getInputMap(JPanel.WHEN_FOCUSED);
-			inputs.put(KeyStroke.getKeyStroke("UP"), "up arrow");
-			inputs.put(KeyStroke.getKeyStroke("DOWN"), "down arrow");
-			inputs.put(KeyStroke.getKeyStroke("LEFT"), "left arrow");
-			inputs.put(KeyStroke.getKeyStroke("RIGHT"), "right arrow");
-			
-			panel.getActionMap().put("up arrow", new UpAction(this, model));
-			panel.getActionMap().put("down arrow", new DownAction(this, model));
-			panel.getActionMap().put("left arrow", new LeftAction(this, model));
-			panel.getActionMap().put("right arrow", new RightAction(this, model));
-		
-		}*/
-		
 	}
+		
+		private void setKeyBindings()
+		{
+			InputMap inputs = panel.getInputMap(JPanel.WHEN_IN_FOCUSED_WINDOW);
+			
+			inputs.put(KeyStroke.getKeyStroke("Z"), "up arrow");
+	        inputs.put(KeyStroke.getKeyStroke("S"), "down arrow");
+	        inputs.put(KeyStroke.getKeyStroke("Q"), "left arrow");
+	        inputs.put(KeyStroke.getKeyStroke("D"), "right arrow");
+	        
+	        
+			inputs.put(KeyStroke.getKeyStroke("UP"), "up arrow");
+			inputs.put(KeyStroke.getKeyStroke("DOWN"), "down arrow");
+			inputs.put(KeyStroke.getKeyStroke("LEFT"), "left arrow");
+			inputs.put(KeyStroke.getKeyStroke("RIGHT"), "right arrow");
+			
+			inputs = panel.getInputMap(JPanel.WHEN_FOCUSED);
+			inputs.put(KeyStroke.getKeyStroke("UP"), "up arrow");
+			inputs.put(KeyStroke.getKeyStroke("DOWN"), "down arrow");
+			inputs.put(KeyStroke.getKeyStroke("LEFT"), "left arrow");
+			inputs.put(KeyStroke.getKeyStroke("RIGHT"), "right arrow");
+			
+			panel.getActionMap().put("up arrow", new MoveAction(this, model, Direction.up));
+			panel.getActionMap().put("down arrow", new MoveAction(this, model, Direction.down));
+			panel.getActionMap().put("left arrow", new MoveAction(this, model, Direction.left));
+			panel.getActionMap().put("right arrow", new MoveAction(this, model, Direction.right));
+		
+			
+		}
+		
+	
+	
+	public void repaintPanel(){
+		panel.repaint();
+	}
+	
+	public void updateScore(){
+		score.updatePartControl();
+	}
+	
+	public void exitGame() 
+	{		
+		model.setHighScores(false);
+		highScore.save();
+		frame.dispose();
+		System.exit(0);
+	}
+	
 
 }

@@ -11,9 +11,18 @@ import java.util.Properties;
 
 public class HighScore {
 	
-	private static final String higherTile = "higherTile";
-	private static final String highScore = "highScore";
+	private static final String grid = "grid";
+	private static final String globalHighestTile = "highestTile";
+	private static final String globalHighestScore = "highestScore";
+	private static final String localHighestTile = "localHighestTile";
+	private static final String localScore = "localScore";
+	private static final String blueWins = "blueWins";
+    private static final String redWins = "redWins";
+    private static final String winColor = "winColor";
+	
 	private Model model;
+	
+	
 	
 	public HighScore(Model model)
 	{
@@ -28,8 +37,15 @@ public class HighScore {
         try {
             input = new FileInputStream(file);
             properties.load(input);
-            model.setHigherScore(Integer.parseInt(properties.getProperty("highScore")));
-            model.setHigherTile(Integer.parseInt(properties.getProperty("higherTile")));
+            
+            model.loadGrid(properties.getProperty("grid"));
+            model.setGlobalHighestScore(Integer.parseInt(properties.getProperty(globalHighestScore)));
+            model.setGlobalHighestTile(Integer.parseInt(properties.getProperty(globalHighestTile)));
+            model.setLocalScore(Integer.parseInt(properties.getProperty(localScore)));
+            model.setLocalHighestTile(Integer.parseInt(properties.getProperty(localHighestTile)));
+            model.setBlueWins(Integer.parseInt(properties.getProperty(blueWins)));
+            model.setRedWins(Integer.parseInt(properties.getProperty(redWins)));
+            model.setWinColor(properties.getProperty(winColor));
         } catch (FileNotFoundException exception) {
              
         } catch (IOException exception) {
@@ -40,8 +56,15 @@ public class HighScore {
 	public void save()
 	{
 		Properties properties = new Properties();
-        properties.setProperty("highScore", Integer.toString(model.getHigherScore()));
-        properties.setProperty("highCell", Integer.toString(model.getHigherTile()));
+		properties.setProperty(globalHighestScore, Integer.toString(model.getGlobalHighestScore()));
+        properties.setProperty(globalHighestTile, Integer.toString(model.getGlobalHighestTile()));
+        properties.setProperty(localScore, Integer.toString(model.getLocalScore()));
+        properties.setProperty(localHighestTile, Integer.toString(model.getLocalHighestTile()));
+        properties.setProperty(blueWins, Integer.toString(model.getBlueWins()));
+        properties.setProperty(redWins, Integer.toString(model.getRedWins()));
+        properties.setProperty(grid, model.toStringGrid());
+        properties.setProperty(winColor, model.getWinColor().toString());
+        
         OutputStream output = null;
         File file = new File("jjq.data");
          
@@ -62,7 +85,7 @@ public class HighScore {
         } catch (IOException exception) {
             exception.printStackTrace();
         }
-         
+        
 	}
 
 }
