@@ -6,7 +6,7 @@ public class Game_2048 implements Runnable{
 	
 	public void run()
 	{
-		new Frame(new Model());
+		new Frame();
 	}
 	
 	public static void main(String[] args)
