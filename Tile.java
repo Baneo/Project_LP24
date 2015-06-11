@@ -8,13 +8,21 @@ import java.awt.font.FontRenderContext;
 import java.awt.geom.Rectangle2D;
 import java.awt.image.BufferedImage;
 
-
+/*
+ * This Class define the Tile object, which is almost the same tile than in the classical 2048-game.
+ */
 public class Tile {
 	
+	/*
+	 * value : integer, represent the value of the tile (2, 4, 8....)
+	 * tileLocation : pair of float-type variables, corresponds to the coordinates of the upper-left corner of the tile, in pixels
+	 * color : TileColor-type variable, corresponds to the color of the tile
+	 */
 	private int value;
 	private Point tileLocation;
 	private TileColor color;
 	
+	// constructor
 	public Tile(int value)
 	{
 		this.value = value;
@@ -22,7 +30,7 @@ public class Tile {
 	
 	public static int getTileWidth()
 	{
-		return 71;
+		return 71; // with 8x8 grid -> frame of 712x712 pixels 
 	}
 	
 	public int getValue()
@@ -47,6 +55,9 @@ public class Tile {
 		return (this.color==TileColor.black);
 	}
 	
+	/*
+	 * isEmpty() return true if the tile's value is zero, regardless of its color.
+	 */
 	public boolean isEmpty()
 	{
 		if(value == 0)
@@ -65,6 +76,9 @@ public class Tile {
 		this.tileLocation = new Point(x,y);
 	}
 	
+	/*
+	 * drawTile draw the tile on the screen
+	 */
 	public void drawTile(Graphics g)
 	{
 		if (value == 0)
@@ -82,6 +96,9 @@ public class Tile {
 		}
 	}
 	
+	/*
+	 * createImage create the image of the tile, which will be drawn on the screen (see previous class)
+	 */
 	private BufferedImage createImage(Font font, FontRenderContext fontRenderContext, int width, String tileValue)
 	{
 		Font largeFont = font.deriveFont((float) (width/4));
@@ -103,16 +120,22 @@ public class Tile {
 		return tileImage;
 	}
 	
+	/*
+	 * defineTileColor return the RGB value of the tile according to its value.
+	 * 
+	 */
 	private Color defineTileColor()
 	{
 		Color color = Color.WHITE;
 		
 			if(!this.color.equals(TileColor.black)){
         	
-				// the value is negative if the tile is red, and positive is the tile is blue
+				// the valueAlgebraic is negative if the tile is red, and positive is the tile is blue
+				// with unchanged absolute value
 				int valueAlgebraic = (this.color.equals(TileColor.blue)) ? value : -value;
         
 				switch (valueAlgebraic) {
+						// blue colors
             		case 2:     color = new Color(171, 171, 252);
                         break;
             		case 4:     color = new Color(171, 171, 252);
@@ -135,6 +158,7 @@ public class Tile {
                         break;
             		case 2048:  color = new Color(3, 3, 90);
                         break;
+                        //red colors
             		case -2:     color = new Color(250, 198, 251);
             			break;
             		case -4:     color = new Color(250, 198, 251);
@@ -157,7 +181,7 @@ public class Tile {
             			break;
             		case -2048:  color = new Color(84, 5, 86);
             			break;
-            		default:    if(this.color.equals(TileColor.blue)) 
+            		default:    if(this.color.equals(TileColor.blue)) // default occur when he value is greater than 2048
             					color = new Color(2, 2, 64);
             				else
             					color = new Color(57, 3, 58);
@@ -170,6 +194,7 @@ public class Tile {
 				color = new Color(0, 0, 0); // black color
         	
 				/*THIS SWITCH CONTAINS ALL THE != COLORS FOR THE GREEN TileColor
+				 * NOT IMPLEMENTED
 				 * switch (value) {
     				case 2:     color = new Color(199, 253, 172);
             			break;
@@ -203,6 +228,9 @@ public class Tile {
 			return color;
 	}
 	
+	/*
+	 * Changed the font color from black to ahite if the value is greater than 128
+	 */
 	private Color getTileTextColor() {
     	if( !color.equals(TileColor.black)){
     		return (value >= 256) ? Color.WHITE : Color.BLACK;

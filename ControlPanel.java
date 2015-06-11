@@ -56,7 +56,7 @@ public class ControlPanel {
 			exit = new JPanel();
 			exit.setLayout(new GridBagLayout());
 			JButton exitButton = new JButton("Exit Game");
-			ExitGameActionListener actionListenerExit = new ExitGameActionListener(frame, model);
+			ExitGameActionListener actionListenerExit = new ExitGameActionListener(frame);
 			exitButton.addActionListener(actionListenerExit);
 			GridBagConstraints gridBagConstraintsExit = new GridBagConstraints(x,y+2,width,height,1.0D,1.0D,anchor,fill,inset,0,0);
 			exit.add(exitButton, gridBagConstraintsExit);

@@ -3,7 +3,9 @@ package lp24.project;
 import javax.swing.AbstractAction;
 import java.awt.event.ActionEvent;
 
-
+/*
+ * This class corresponds to the listeners associated to all the keyboard inputs from the user.
+ */
 public class MoveAction extends AbstractAction{
 	
 	/**
@@ -22,8 +24,13 @@ public class MoveAction extends AbstractAction{
 	}
 	
 	public void actionPerformed(ActionEvent event){
-		if(model.isArrow()){
-			
+		/*
+		 * When the user hit a binded key on his keyboard, the switch will decide which key was hit,
+		 * and will move all tiles if possible (if nothing moves, a new tile isn't added on the grid).
+		 * After that, if the game is in Game Over state, the move is ended and the game over is detected
+		 * and displayed on the user's screen. If it's not, a new tile is added on the grid.
+		 */
+		if(model.isArrow()){	
 			switch (direction) {
 			case up :	if(model.moveUp()){
 							if(model.isGameOver()){
@@ -67,6 +74,9 @@ public class MoveAction extends AbstractAction{
 	}// end of "actionPerformed"
 
 	
+	/*
+	 * Method that add a new tile and update the screen and the score panel.
+	 */
 	private void addNewTile(){
 		model.addTile();
 		frame.repaintPanel();

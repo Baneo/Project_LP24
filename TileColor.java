@@ -1,17 +1,20 @@
 package lp24.project;
 
+/*
+ * This Enum was created to handle tile's colors.
+ */
 public enum TileColor {
-	// valeurs possibles
+	// possible values
 	red ("red"),
 	blue ("blue"),
 	green ("green"),
 	black ("black");
 	
-	// string contenant la valeur de l'objet
+	// string containing the object's values
 	private String color = "";
 	
-	// constructeur
-	TileColor(String color){
+	// constructor
+	private TileColor(String color){
 		this.color=color;
 	}
 	

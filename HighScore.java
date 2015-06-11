@@ -9,8 +9,13 @@ import java.io.InputStream;
 import java.io.OutputStream;
 import java.util.Properties;
 
+/*
+ * This class handle the save/load process for the scores. These data are exchanged with the Model Class.
+ */
 public class HighScore {
-	
+	/*
+	 * All these strings corresponds to the field where the Model's variables will be stored (inside the save file).
+	 */
 	private static final String grid = "grid";
 	private static final String globalHighestTile = "highestTile";
 	private static final String globalHighestScore = "highestScore";
@@ -29,15 +34,21 @@ public class HighScore {
 		this.model = model;
 	}
 	
+	/*
+	 * Method that will load data from the file to the Model object.
+	 */
 	public void load()
 	{
 		Properties properties = new Properties();
 		InputStream input = null;
-        File file = new File("jjq.data");
+        File file = new File("jjq.data"); // "jjq.data" is the name of the file where the data are saved.
         try {
             input = new FileInputStream(file);
             properties.load(input);
             
+            /*
+             *  for each loaded data, we call the corresponding setter from the Model Class, with the data in parameter
+             */
             model.loadGrid(properties.getProperty("grid"));
             model.setGlobalHighestScore(Integer.parseInt(properties.getProperty(globalHighestScore)));
             model.setGlobalHighestTile(Integer.parseInt(properties.getProperty(globalHighestTile)));
@@ -55,6 +66,11 @@ public class HighScore {
 	
 	public void save()
 	{
+		/*
+		 * for each data we want to save, we call the corresponding getter, which is associated
+		 * to matching string (declarations are located above the methods), and are added to a 
+		 * Properties object. These properties will be stored in the file in the try{} field.
+		 */
 		Properties properties = new Properties();
 		properties.setProperty(globalHighestScore, Integer.toString(model.getGlobalHighestScore()));
         properties.setProperty(globalHighestTile, Integer.toString(model.getGlobalHighestTile()));
